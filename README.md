@@ -1,8 +1,8 @@
 # wchup
 
-`wchup` is a simple but modern project generator for WCH microcontrollers. It provides an alternative to the vendor-supplied MounRiver Studio environment and proprietary toolchain forks by adopting a clean, upstream LLVM/Clang toolchain, C23, CMake presets, and an ultra-lightweight bare-metal runtime.
+`wchup` is a simple but modern project generator for WCH microcontrollers. It provides an alternative to the vendor-supplied MounRiver Studio environment and proprietary toolchain forks by adopting a clean, upstream LLVM/Clang toolchain, C23, CMake presets, and an lightweight bare-metal runtime.
 
-The project is currently in its initial phase, featuring full support for the **CH32V003** (QingKe V2 RISC-V core) with LLVM `compiler-rt` builtins and a custom heapless `picolibc` deployment.
+The project is currently in its initial phase, featuring initial support for the **CH32V003** (QingKe V2 RISC-V core) with LLVM `compiler-rt` builtins and a custom heapless `picolibc` deployment.
 
 ## Philosophy
 
@@ -21,7 +21,7 @@ Microcontroller development for WCH chips typically involves choosing between th
 - **CMake**: 3.21 or later
 - **Ninja**: Build generator
 - **LLVM / Clang**: Clang, LLD, `llvm-ar`, and `llvm-ranlib` built with the RISC-V target backend. The toolchain must support `rv32ec_zicsr_zifencei` and the `ilp32e` ABI (verified against LLVM 23.x).
-- **Runtime Libraries**: Prebuilt runtime artifacts in `llvmlib/install/` (see [Building the Runtime](#building-the-runtime)).
+- **Runtime Libraries**: See [Building the Runtime](#building-the-runtime).
 
 ## Quickstart
 
@@ -127,7 +127,7 @@ Optional helper libraries, such as `debug/debug.c` (UART/SDI printf and delay ro
 
 ## Building the Runtime
 
-Prebuilt runtime libraries for `rv32ec-ilp32e-nomalloc` are provided in `llvmlib/install/`. To rebuild them from source (requires Git, Meson, and LLVM/Clang):
+Build runtime libraries from source (requires Git, Meson, and LLVM/Clang):
 
 1. **Fetch runtime sources**:
    Run `fetch-runtime.sh` to initialize and check out the pinned submodule revisions. For `llvm-project`, it configures a shallow, blobless clone with sparse checkout (retrieving only `compiler-rt` and the necessary CMake modules) to avoid downloading the full LLVM repository:
