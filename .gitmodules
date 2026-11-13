@@ -1,0 +1,6 @@
+[submodule "llvmlib/llvm-project"]
+	path = llvmlib/llvm-project
+	url = https://github.com/llvm/llvm-project.git
+[submodule "llvmlib/picolibc"]
+	path = llvmlib/picolibc
+	url = https://github.com/picolibc/picolibc.git

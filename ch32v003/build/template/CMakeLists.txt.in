@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.21)
+project(@PROJECT_NAME@ LANGUAGES C ASM)
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
+
+foreach(language C ASM)
+    set(CMAKE_${language}_FLAGS_RELEASE "-Os -g3")
+    set(CMAKE_${language}_FLAGS_DEBUG "-Og -g3")
+endforeach()
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+set(WCH_SDK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ch32v003")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/ch32v003.cmake")
+
+wch_add_executable(${PROJECT_NAME}
+    SOURCES src/main.c
+    PERIPHERALS gpio rcc)
+
+target_compile_options(${PROJECT_NAME} PRIVATE
+    "$<$<COMPILE_LANGUAGE:C>:-flto>"
+    "$<$<COMPILE_LANGUAGE:C>:-fno-strict-aliasing>")
+target_link_options(${PROJECT_NAME} PRIVATE -flto -fno-strict-aliasing)
